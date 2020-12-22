@@ -2,24 +2,24 @@ package ttt;
 
 import ttt.actors.Actor;
 import ttt.actors.Opponent;
-import ttt.actors.Player;
+import ttt.util.Results.Record;
 
 public class Game {
   public final int SIZE = 3;
-  public final Player player;
+  public final Actor player;
 
-  public Game(Player player) {
+  public Game(Actor player) {
     this.player = player;
   }
 
   public void start() {
-		final Actor opponent = new Opponent(this.player.symbol == "x" ? "o" : "x");
+		final Actor opponent = new Opponent(this.player.symbol.equals("x") ? "o" : "x");
 		final GameMap map = new GameMap(this.SIZE, this.player, opponent);
 
     System.out.printf("%s%n%n", map.draw());
 
 		/* Main game loop */
-		while (map.isMovesLeft() && map.getWinner() != null) {
+		while (map.isMovesLeft() && map.getWinner() == null) {
 			map.makeMove(player);
 			map.makeMove(opponent);
 
@@ -33,5 +33,8 @@ public class Game {
 		} else {
 			System.out.printf("Congrats! \"%s\" is a winner%n", winner);
 		}
+
+		Record result = new Record(winner, winner == this.player ? opponent : this.player);
+		System.out.println(result);
   }
 }

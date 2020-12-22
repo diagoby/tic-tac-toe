@@ -2,16 +2,15 @@ package ttt.util;
 
 import java.util.Scanner;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 public class Console {
   private final static Scanner scanner = new Scanner(System.in);
 
   public static String read(String prompt) {
-    try {
-      System.out.print(prompt);
-
-      return scanner.next();
+    System.out.print(prompt);
+  
+    try (Scanner tokenizer = new Scanner(scanner.nextLine())) {
+      return tokenizer.next();
     } catch (Exception e) {
       System.out.print("Invalid value... ");
 
@@ -26,10 +25,10 @@ public class Console {
 
     String patternString = String.format("^(%s)$", String.join("|", optionsStrings));
 
-    try {
-      System.out.print(prompt);
+    System.out.print(prompt);
 
-      return scanner.next(Pattern.compile(patternString));
+    try (Scanner tokenizer = new Scanner(scanner.nextLine())) {
+      return tokenizer.next(patternString);
     } catch (Exception e) {
       System.out.printf(
         "Invalid option. Value should be one of: %s%n", 

@@ -8,14 +8,11 @@ import ttt.GameMap.Move;
 public class Player extends Actor {
   private static final Scanner scanner = new Scanner(System.in);
 
-  private GameMap map;
-
   public String symbol;
   public String name;
 
   public Player(String symbol, String name) {
-    this.name = name;
-    this.symbol = symbol;
+    super(symbol, name);
   }
 
   @Override
@@ -40,7 +37,7 @@ public class Player extends Actor {
 			row > map.size || row < 1 || 
 			col > map.size || col < 1
 		) {
-      System.out.printf("Col/row number should be between %d and %d!%n%n", 1, this.map.size);
+      System.out.printf("Col/row number should be between %d and %d!%n%n", 1, map.size);
       
       return this.makeMove(map);
 		}
