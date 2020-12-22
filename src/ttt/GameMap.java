@@ -1,7 +1,10 @@
+package ttt;
+
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import ttt.actors.Actor;
 /**
  * 
  */
@@ -10,27 +13,33 @@ import java.util.stream.Stream;
  * @author username
  *
  */
+
 public class GameMap {
-	public String[][] field = null;
-
-	public int size = 0;
-
-	public String placeholder = " ";
-	public String rowDelimiter = "-";
-	public String columnDelimiter = " | ";
+	private final String[][] field;
+	private final int step = 10;
 	
-	public String player = "x";
-	public String opponent = "0";
+	public final int size;	
+	public final String placeholder = " ";
+	public final String rowDelimiter = "-";
+	public final String columnDelimiter = " | ";
 	
-	public int step = 10;
+	public final Actor player;
+	public final Actor opponent;
 	
 	/**
 	 * 
 	 */
-	public GameMap(int size) {
+	public GameMap(int size, Actor player, Actor opponent) {
 		this.size = size;
 
+		this.player = player;
+		this.opponent = opponent;
+
 		this.field = new String[size][size];
+
+		/** 
+		 * Fill game field with it's initial values
+		 */
 		this.fill();
 	}
 	
@@ -102,7 +111,7 @@ public class GameMap {
 		if (!isMovesLeft()) return 0; /* It's a tie */
 		
 		int best = isMax ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-		String actor = isMax ? this.player : this.opponent;
+		String actor = isMax ? this.player.symbol : this.opponent.symbol;
 		
 		for (int i = 0; i < this.size; i++) {
 			for (int j = 0; j < this.size; j++) {
@@ -128,7 +137,7 @@ public class GameMap {
 		for (int i = 0; i < this.size; i++) { 
 			for (int j = 0; j < this.size; j++) { 
 				if (this.field[i][j].equals(this.placeholder)) { 
-					this.field[i][j] = this.player; 
+					this.field[i][j] = this.player.symbol;
 					int moveVal = minimax(false); 
 					this.field[i][j] = this.placeholder; 
 
@@ -153,9 +162,9 @@ public class GameMap {
 	private int calculateScore(String[] line) {
 		int score = 0;
 
-		if(line[0].equals(this.player)) {
+		if(line[0].equals(this.player.symbol)) {
 			score = this.step;
-		} else if(line[0].equals(this.opponent)) {
+		} else if(line[0].equals(this.opponent.symbol)) {
 			score = -this.step;
 		}
 
@@ -166,8 +175,9 @@ public class GameMap {
 		return Arrays.stream(line).distinct().count() == 1;
 	}
 
-	public void makeMove(Move move, String symbol) {
-		this.field[move.row][move.col] = symbol;
+	public void makeMove(Actor actor) {
+		Move move = actor.makeMove(this);
+		this.field[move.row][move.col] = actor.symbol;
 	}
 
 	public String draw() {
@@ -184,15 +194,15 @@ public class GameMap {
 		return out;
 	}
 
-	public String getWinner() {
+	public Actor getWinner() {
 		int score = this.evaluate();
 
-		if(score == 0) return "";
+		if(score == 0) return null;
  
 		return score == this.step ? this.player : this.opponent;
 	}
 	
-	public class Move {
+	public static class Move {
 		int row;
 		int col;
 		

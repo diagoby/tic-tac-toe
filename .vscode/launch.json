@@ -8,13 +8,13 @@
       "type": "java",
       "name": "Debug (Launch) - Current File",
       "request": "launch",
-      "mainClass": "${file}"
+      "mainClass": "ttt.${file}"
     },
     {
       "type": "java",
       "name": "Debug (Launch)-TicTacToe<tic-tac-toe>",
       "request": "launch",
-      "mainClass": "TicTacToe",
+      "mainClass": "ttt.TicTacToe",
       "projectName": "tic-tac-toe"
     }
   ]
