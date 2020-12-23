@@ -12,6 +12,6 @@ public class ChampionsStrategy implements IMenuStrategy {
     Champion[] champions = Results.getChampions();
     String[] lines = Stream.of(champions).map(Champion::toString).toArray(String[]::new);
 
-    System.out.println(String.join("\n", lines));
+    System.out.println(String.join("\n", lines).concat("\n"));
   }
 }

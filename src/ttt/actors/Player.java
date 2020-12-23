@@ -42,6 +42,14 @@ public class Player extends Actor {
       return this.makeMove(map);
 		}
 
-    return new Move(row - 1, col - 1);
+    Move move = new Move(row - 1, col - 1);
+
+    if(!map.isCellEmpty(move)) {
+      System.out.println("This cell isn't empty. Choose another one...");
+
+      return this.makeMove(map);
+    }
+
+    return move;
   }
 }

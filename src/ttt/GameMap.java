@@ -180,6 +180,11 @@ public class GameMap {
 		this.field[move.row][move.col] = actor.symbol;
 	}
 
+	public boolean isCellEmpty(Move move) {
+		String cell = this.field[move.row][move.col];
+		return cell.equals(this.placeholder);
+	}
+
 	public String draw() {
 		String delimiter = String
 			.format("%n%s%n", this.rowDelimiter.repeat(3 * this.size + this.size - 1));
