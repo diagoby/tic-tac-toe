@@ -3,10 +3,12 @@ package ttt;
 import ttt.strategies.IMenuStrategy;
 import ttt.strategies.PlayStrategy;
 import ttt.strategies.ChampionsStrategy;
+import ttt.strategies.ExitStrategy;
 
 public enum Menu implements IMenuStrategy {
   PLAY(new PlayStrategy()),
-  CHAMPIONS(new ChampionsStrategy());
+  CHAMPIONS(new ChampionsStrategy()),
+  EXIT(new ExitStrategy());
 
   private final IMenuStrategy strategy;
 

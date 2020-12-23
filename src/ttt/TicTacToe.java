@@ -28,12 +28,14 @@ public class TicTacToe {
 			Select what to do:
 				1. Play
 				2. Show champions
+				3. Exit
 			"""
 		);
 
 		Map<String, IMenuStrategy> menuMap = new HashMap<String, IMenuStrategy>();
 		menuMap.put("1", Menu.PLAY);
 		menuMap.put("2", Menu.CHAMPIONS);
+		menuMap.put("3", Menu.EXIT);
 
 		String option = Console.readOneOf(menuMap.keySet(), "Enter option number: ");
 		IMenuStrategy strategy = menuMap.get(option);

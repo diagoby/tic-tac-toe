@@ -188,14 +188,11 @@ public class GameMap {
 	public String draw() {
 		String delimiter = String
 			.format("%n%s%n", this.rowDelimiter.repeat(3 * this.size + this.size - 1));
-		// String delimiter = String
-		// 	.format("%n%s%n", this.rowDelimiter.repeat(3 * this.size + this.size - 1));
 
 		String out = Stream.of(this.field)
 			.map((row) -> " " + String.join(this.columnDelimiter, row) + " ")
 			.collect(Collectors.joining(delimiter));
 
-		// System.out.printf("%s%n", out);
 		return out;
 	}
 
