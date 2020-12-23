@@ -2,6 +2,7 @@ package ttt;
 
 import ttt.actors.Actor;
 import ttt.actors.Opponent;
+import ttt.util.Results;
 import ttt.util.Results.Record;
 
 public class Game {
@@ -31,10 +32,16 @@ public class Game {
 		if(winner == null) {
 			System.out.println("It's a tie");
 		} else {
-			System.out.printf("Congrats! \"%s\" is a winner%n", winner);
-		}
+			System.out.printf("Congrats! \"%s\" is a winner%n", winner.name);
 
-		Record result = new Record(winner, winner == this.player ? opponent : this.player);
-		System.out.println(result);
+			Record record = new Record(
+				winner.name, 
+				winner == this.player 
+					? opponent.name 
+					: this.player.name
+			);
+
+			Results.save(record);
+		}
   }
 }

@@ -11,10 +11,15 @@ public abstract class Actor {
     this.symbol = symbol;
   }
 
-  public Actor(String symbol, String name) {
+  public Actor(String name, String symbol) {
     this.name = name;
     this.symbol = symbol;
   }
 
   public abstract Move makeMove(GameMap map);
+
+  @Override
+  public String toString() {
+    return String.format("%s|%s", this.symbol, this.name);
+  }
 }

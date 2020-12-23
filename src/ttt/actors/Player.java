@@ -11,8 +11,8 @@ public class Player extends Actor {
   public String symbol;
   public String name;
 
-  public Player(String symbol, String name) {
-    super(symbol, name);
+  public Player(String name, String symbol) {
+    super(name, symbol);
   }
 
   @Override

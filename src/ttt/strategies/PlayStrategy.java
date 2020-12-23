@@ -14,7 +14,7 @@ public class PlayStrategy implements IMenuStrategy {
     String name = Console.read("Enter player's name: ");
     String symbol = Console.readOneOf(Set.of("x", "o"), "Choose symbol to play (x/o): ");
 
-    Actor player = new Player(symbol, name);
+    Actor player = new Player(name, symbol);
     Game game = new Game(player);
   
     game.start();

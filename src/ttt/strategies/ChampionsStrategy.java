@@ -1,18 +1,17 @@
 package ttt.strategies;
+import java.util.stream.Stream;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
+import ttt.util.Results;
+import ttt.util.Results.Champion;
 
 public class ChampionsStrategy implements IMenuStrategy {
   public final int SIZE = 3;
 
   @Override
   public void forward() {
-    try {
-      String results = Files.readString(Path.of("results.txt"));
-      System.out.println(results);
-    } catch (Exception e) {
-      System.out.println("File not found");
-    }
+    Champion[] champions = Results.getChampions();
+    String[] lines = Stream.of(champions).map(Champion::toString).toArray(String[]::new);
+
+    System.out.println(String.join("\n", lines));
   }
 }
